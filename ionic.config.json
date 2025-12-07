@@ -1,0 +1,7 @@
+{
+  "name": "Wasserbedarf_einer_Planze",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
