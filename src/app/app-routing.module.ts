@@ -11,6 +11,18 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'ergebnis-seite',
+    loadChildren: () => import('./ergebnis-seite/ergebnis-seite.module').then( m => m.ErgebnisSeitePageModule)
+  },
+  {
+    path: 'datenbank-seite',
+    loadChildren: () => import('./datenbank-seite/datenbank-seite.module').then( m => m.DatenbankSeitePageModule)
+  },
+  {
+    path: 'info-seite',
+    loadChildren: () => import('./info-seite/info-seite.module').then( m => m.InfoSeitePageModule)
+  },
 ];
 
 @NgModule({
