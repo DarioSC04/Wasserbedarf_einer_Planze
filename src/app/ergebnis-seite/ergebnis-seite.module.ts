@@ -13,7 +13,7 @@ import { ErgebnisSeitePage } from './ergebnis-seite.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ErgebnisSeitePageRoutingModule
+    ErgebnisSeitePageRoutingModule,
   ],
   declarations: [ErgebnisSeitePage]
 })
