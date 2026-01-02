@@ -41,6 +41,11 @@ export class DatenbankSeitePage{
 
   public async alleEintraegeLoeschen() {
 
+    if ( (await this.speicherVerwaltungService.berechnungenAnzahl()) === 0 ) {
+      this.sendToast('Es sind keine Einträge in der Datenbank vorhanden.');
+      return;
+    }
+
     const sicherheitsfrage = `Möchten Sie wirklich alle Einträge in der Datenbank löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.`;
     const jaHandler = async () => {
       await this.speicherVerwaltungService.alleBerechnungenLöschen();
