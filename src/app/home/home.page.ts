@@ -16,6 +16,7 @@ export class HomePage {
   public _temperaturEingabe : number = 2;
   public _bodenEingabe : number = 2;
   public _klimaEingabe : number = 2;
+  public _kommentarEingabe : string = "";
 
   constructor(private toastController: ToastController, private navController: NavController) {}
 
@@ -50,7 +51,7 @@ export class HomePage {
         throw new Error("Ungültige Pflanzenart ausgewählt");
     }
 
-    this.navController.navigateForward(`/ergebnis-seite?Pflanzenart=${this._planzenartEingabe}&PflanzenartFaktor=${pflanzenartFaktor}&TopfVolumen=${this._topfVolumenEingabe}&Licht=${lichtFaktor}&Temperatur=${temperaturFaktor}&Boden=${bodenFaktor}&Klima=${klimaFaktor}`);
+    this.navController.navigateForward(`/ergebnis-seite?Pflanzenart=${this._planzenartEingabe}&PflanzenartFaktor=${pflanzenartFaktor}&TopfVolumen=${this._topfVolumenEingabe}&Licht=${lichtFaktor}&Temperatur=${temperaturFaktor}&Boden=${bodenFaktor}&Klima=${klimaFaktor}&Kommentar=${this._kommentarEingabe}`);
 
     } catch (error: any){
       this.sendToast(error.message);

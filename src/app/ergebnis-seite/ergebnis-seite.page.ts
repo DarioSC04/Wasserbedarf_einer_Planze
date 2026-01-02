@@ -17,6 +17,7 @@ export class ErgebnisSeitePage {
   public Temperatur: number | null;
   public Boden: number | null;
   public Klima: number | null;
+  public Kommentar: string | null;
 
   public Ergebnis: string | null;
 
@@ -33,6 +34,7 @@ export class ErgebnisSeitePage {
     this.Temperatur = Number(this.route.snapshot.queryParamMap.get('Temperatur'));
     this.Boden = Number(this.route.snapshot.queryParamMap.get('Boden'));
     this.Klima = Number(this.route.snapshot.queryParamMap.get('Klima'));
+    this.Kommentar = this.route.snapshot.queryParamMap.get('Kommentar');
     this.Ergebnis = this.berechneWasserbedarf();
 
     if(this.Pflanzenart === "Sukkulenten"){
@@ -74,7 +76,8 @@ export class ErgebnisSeitePage {
       new Date().toISOString(),
       this._plantImagePath,
       this._plantImageAltText,
-      this._plantImageTypeText
+      this._plantImageTypeText,
+      this.Kommentar || ""
     ));
   }
 
