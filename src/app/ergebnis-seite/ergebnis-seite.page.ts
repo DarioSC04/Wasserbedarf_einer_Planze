@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SpeicherVerwaltungService, DatenbankEintrag } from '../SpeicherVerwaltungService';
 
 @Component({
   selector: 'app-ergebnis-seite',
@@ -23,7 +24,7 @@ export class ErgebnisSeitePage {
   public _plantImageAltText: string = "";
   public _plantImageTypeText: string = "";
 
-  constructor(private route: ActivatedRoute) { 
+  constructor(private route: ActivatedRoute, private speicherVerwaltungService: SpeicherVerwaltungService) { 
 
     this.Pflanzenart = this.route.snapshot.queryParamMap.get('Pflanzenart');
     this.PflanzenartFaktor = Number(this.route.snapshot.queryParamMap.get('PflanzenartFaktor'));
@@ -61,7 +62,20 @@ export class ErgebnisSeitePage {
     }
 
 
-
+    this.speicherVerwaltungService.berechnungHinzufügen(new DatenbankEintrag(
+      Math.floor(Math.random() * 1000000),
+      this.Pflanzenart || "",
+      this.TopfVolumen || 0,
+      this.Licht || 0,
+      this.Temperatur || 0,
+      this.Boden || 0,
+      this.Klima || 0,
+      Number(this.Ergebnis) || 0,
+      new Date().toISOString(),
+      this._plantImagePath,
+      this._plantImageAltText,
+      this._plantImageTypeText
+    ));
   }
 
   private berechneWasserbedarf(): string{

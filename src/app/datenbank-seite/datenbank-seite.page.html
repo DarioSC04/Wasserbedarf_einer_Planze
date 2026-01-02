@@ -1,13 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>DatenbankSeite</ion-title>
+    <ion-button (click)="alleEintraegeLoeschen()" color="danger" slot="end">Alle löschen</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">DatenbankSeite</ion-title>
-    </ion-toolbar>
-  </ion-header>
+   <ion-list>
+    <ion-item *ngFor="let eintrag of datenbankEintraege | async">
+      <ion-card>
+        <div class="image-container">
+          <img class="plant-image" [src]="eintrag.plantImagePath" [alt]="eintrag.plantImageAltText"/>
+        </div>
+        <ion-card-header>
+          <ion-card-title>{{eintrag.plantImageTypeText}} braucht {{eintrag.ergebnis}} L/Woche</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Topfvolumen: {{eintrag.topfVolumen}} L</p>
+          <p>Lichtfaktor: {{eintrag.licht}}</p>
+          <p>Temperaturfaktor: {{eintrag.temperatur}} °C</p>
+          <p>Bodenfaktor: {{eintrag.boden}}</p>
+          <p>Klimafaktor: {{eintrag.klima}}</p>
+          <p>Datum: {{eintrag.datum | date:'dd.MM.yyyy HH:mm'}}</p>
+          <ion-button color="danger" (click)="eintragLoeschen(eintrag)">Löschen</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+   </ion-list>
+
 </ion-content>
