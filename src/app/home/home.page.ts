@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastController, NavController } from '@ionic/angular';
+import { ToastService } from '../toast-service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomePage {
   public _klimaEingabe : number = 2;
   public _kommentarEingabe : string = "";
 
-  constructor(private toastController: ToastController, private navController: NavController) {}
+  constructor(private toastController: ToastController, private navController: NavController, private toastService: ToastService) {}
 
   public onBerechnungButton(){
 
@@ -54,7 +55,7 @@ export class HomePage {
     this.navController.navigateForward(`/ergebnis-seite?Pflanzenart=${this._planzenartEingabe}&PflanzenartFaktor=${pflanzenartFaktor}&TopfVolumen=${this._topfVolumenEingabe}&Licht=${lichtFaktor}&Temperatur=${temperaturFaktor}&Boden=${bodenFaktor}&Klima=${klimaFaktor}&Kommentar=${this._kommentarEingabe}`);
 
     } catch (error: any){
-      this.sendToast(error.message);
+      this.toastService.zeigeDialog("Eingabefehler", error.message);
     }
     
   }
@@ -71,16 +72,6 @@ export class HomePage {
       throw new Error("Die Berechnung ist nur für Zimmerpflanzen ausgelegt.");
     }
 
-  }
-
-  private async sendToast(text: string) : Promise<void>{
-    const toast = await this.toastController.create({
-      message: text,
-      duration: 1500,
-      position: "bottom",
-    });
-
-    await toast.present();
   }
 
   public pinFormatterLicht(value: number) {

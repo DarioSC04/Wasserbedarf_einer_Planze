@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ToastController, AlertController } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { DatenbankEintrag, SpeicherVerwaltungService } from '../SpeicherVerwaltungService';
+import { ToastService } from '../toast-service';
 
 @Component({
   selector: 'app-datenbank-seite',
@@ -14,7 +15,7 @@ export class DatenbankSeitePage{
 
   constructor(private speicherVerwaltungService: SpeicherVerwaltungService,
               private toastController: ToastController,
-              private alertCtrl: AlertController) {
+              private toastService: ToastService) {
   }
 
   private ionViewWillEnter() {
@@ -27,22 +28,22 @@ export class DatenbankSeitePage{
 
     const jaHandler = async () => {
       await this.speicherVerwaltungService.berechnungLöschen(eintrag.id);
-      this.datenbankEintraege = this.speicherVerwaltungService.alleBerechnungenLaden();
-      this.sendToast(`Der Eintrag für die Pflanze "${eintrag.pflanzenart}" wurde gelöscht.`);
+      this.ionViewWillEnter();
+      this.toastService.zeigeToast(`Der Eintrag für die Pflanze "${eintrag.pflanzenart}" wurde gelöscht.`);
     };
 
     const abbrechenHandler = async () => {
-      this.sendToast('Löschvorgang abgebrochen.');
+      this.toastService.zeigeToast('Löschvorgang abgebrochen.');
     };
 
-    this.alertSenden(sicherheitsfrage, jaHandler, abbrechenHandler);
+    this.toastService.sicherheitsAbfrage(sicherheitsfrage, jaHandler, abbrechenHandler);
 
   }
 
   public async alleEintraegeLoeschen() {
 
     if ( (await this.speicherVerwaltungService.berechnungenAnzahl()) === 0 ) {
-      this.sendToast('Es sind keine Einträge in der Datenbank vorhanden.');
+      this.toastService.zeigeToast('Es sind keine Einträge in der Datenbank vorhanden.');
       return;
     }
 
@@ -50,49 +51,12 @@ export class DatenbankSeitePage{
     const jaHandler = async () => {
       await this.speicherVerwaltungService.alleBerechnungenLöschen();
       this.datenbankEintraege = this.speicherVerwaltungService.alleBerechnungenLaden();
-      this.sendToast('Alle Einträge wurden gelöscht.');
+      this.toastService.zeigeToast('Alle Einträge wurden gelöscht.');
     };
 
     const abbrechenHandler = async () => {
-      this.sendToast('Löschvorgang abgebrochen.');
+      this.toastService.zeigeToast('Löschvorgang abgebrochen.');
     }; 
-    this.alertSenden(sicherheitsfrage, jaHandler, abbrechenHandler);
-  }
-
-  private async alertSenden(sicherheitsfrage: string, jaHandler: () => Promise<void>, abbrechenHandler: () => Promise<void>) : Promise<void> {
-        const jaButton = {
-        text: "Weiter",
-        handler: async () => {
-            await jaHandler();
-        }
-    };
-
-    const abbrechenButton = {
-        text: "Abbrechen",
-        role: "Cancel",
-        handler: async () => {
-            await abbrechenHandler();
-        }
-    };
-
-    const meinAlert =
-          await this.alertCtrl.create({
-              header         : "Sicherheitsfrage",
-              message        : sicherheitsfrage,
-              backdropDismiss: false,
-              buttons        : [ jaButton, abbrechenButton ]
-          });
-
-    await meinAlert.present();
-  }
-
-  private async sendToast(text: string) : Promise<void>{
-    const toast = await this.toastController.create({
-      message: text,
-      duration: 1500,
-      position: "bottom",
-    });
-
-    await toast.present();
+    this.toastService.sicherheitsAbfrage(sicherheitsfrage, jaHandler, abbrechenHandler);
   }
 }
