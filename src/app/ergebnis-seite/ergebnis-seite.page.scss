@@ -1,0 +1,17 @@
+.result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 60px;
+}
+
+.result-image {
+  max-width: 80%;
+  height: auto;
+}
+
+.result-text {
+  text-align: center;
+}

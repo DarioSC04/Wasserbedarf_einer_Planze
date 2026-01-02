@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
-import { IonRange } from '@ionic/angular';
+import { ToastController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +17,7 @@ export class HomePage {
   public _bodenEingabe : number = 2;
   public _klimaEingabe : number = 2;
 
-  constructor(public toastController: ToastController) {}
+  constructor(private toastController: ToastController, private navController: NavController) {}
 
   public onBerechnungButton(){
 
@@ -33,30 +32,25 @@ export class HomePage {
     let bodenFaktor: number = 0.8 + this._bodenEingabe * 0.1;
     let klimaFaktor: number = 0.8 + this._klimaEingabe * 0.1;
 
-    let planzenartfactor: number = 1.0;
+    let pflanzenartFaktor: number = 1.0;
     switch(this._planzenartEingabe){
+      case "Kakteen":
+        pflanzenartFaktor = 0.01;
+        break;
       case "Sukkulenten":
-        planzenartfactor = 0.03;
+        pflanzenartFaktor = 0.03;
         break;
       case "normale Zimmerpflanzen":
-        planzenartfactor = 0.08;
+        pflanzenartFaktor = 0.08;
         break;
       case "tropische Pflanzen":
-        planzenartfactor = 0.18;
+        pflanzenartFaktor = 0.18;
         break;
       default:
         throw new Error("Ungültige Pflanzenart ausgewählt");
     }
-    
-    let ergebnis: number = this._topfVolumenEingabe * planzenartfactor * lichtFaktor * temperaturFaktor * bodenFaktor * klimaFaktor;
-    let roundedErgebnis: number = Math.round(ergebnis * 100) / 100;
 
-    if(roundedErgebnis < 0.01){
-      this.sendToast("Der Wasserbedarf der Pflanze beträgt weniger als 0.01 Liter pro Woche.");
-      return;
-    }else{
-    this.sendToast("Der Wasserbedarf der Pflanze beträgt " + roundedErgebnis.toString() + " Liter pro Woche.");
-    }
+    this.navController.navigateForward(`/ergebnis-seite?Pflanzenart=${this._planzenartEingabe}&PflanzenartFaktor=${pflanzenartFaktor}&TopfVolumen=${this._topfVolumenEingabe}&Licht=${lichtFaktor}&Temperatur=${temperaturFaktor}&Boden=${bodenFaktor}&Klima=${klimaFaktor}`);
 
     } catch (error: any){
       this.sendToast(error.message);
