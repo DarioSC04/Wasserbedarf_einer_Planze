@@ -5,3 +5,29 @@
 .plant-image {
   width: 30%;
 }
+
+// Querformat (Landscape)
+@media (orientation: landscape) {
+  ion-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ion-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  ion-item {
+    flex-basis: auto;
+  }
+
+  ion-card {
+    max-width: 500px;
+  }
+}
