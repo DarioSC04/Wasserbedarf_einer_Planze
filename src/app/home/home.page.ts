@@ -72,6 +72,10 @@ export class HomePage {
       throw new Error("Die Berechnung ist nur für Zimmerpflanzen ausgelegt.");
     }
 
+    if(this._kommentarEingabe.length > 200){
+      throw new Error("Der Kommentar darf maximal 200 Zeichen lang sein.");
+    }
+
   }
 
   public pinFormatterLicht(value: number) {
