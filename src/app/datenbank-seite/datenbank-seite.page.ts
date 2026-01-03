@@ -24,12 +24,12 @@ export class DatenbankSeitePage{
 
   public async eintragLoeschen(eintrag: DatenbankEintrag) {
 
-    const sicherheitsfrage = `Möchten Sie den Eintrag für die Pflanze "${eintrag.pflanzenart}" wirklich löschen?`;
+    const sicherheitsfrage = `Möchten Sie den Eintrag für die Pflanze "${eintrag.plantImageTypeText}" wirklich löschen?`;
 
     const jaHandler = async () => {
       await this.speicherVerwaltungService.berechnungLöschen(eintrag.id);
       this.ionViewWillEnter();
-      this.toastService.zeigeToast(`Der Eintrag für die Pflanze "${eintrag.pflanzenart}" wurde gelöscht.`);
+      this.toastService.zeigeToast(`Der Eintrag für die Pflanze "${eintrag.plantImageTypeText}" wurde gelöscht.`);
     };
 
     const abbrechenHandler = async () => {
@@ -56,7 +56,8 @@ export class DatenbankSeitePage{
 
     const abbrechenHandler = async () => {
       this.toastService.zeigeToast('Löschvorgang abgebrochen.');
-    }; 
+    };
+    
     this.toastService.sicherheitsAbfrage(sicherheitsfrage, jaHandler, abbrechenHandler);
   }
 }

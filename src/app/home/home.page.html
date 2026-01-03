@@ -15,13 +15,21 @@
         <ion-select-option value="Kakteen">Kakteen</ion-select-option>
         <ion-select-option value="Sukkulenten">Sukkulenten</ion-select-option>
         <ion-select-option value="normale Zimmerpflanzen">normale Zimmerpflanzen</ion-select-option>
-        <ion-select-option value="tropische Pflanzen">tropische Pflanzen</ion-select-option>
         
     </ion-select>
       </ion-item>
 
+    <ion-item>
+      <ion-select label="Jahreszeit" placeholder="wähle die Jahreszeit aus" [(ngModel)]="_jahreszeitEingabe">
+        <ion-select-option value="Frühling">Frühling</ion-select-option>
+        <ion-select-option value="Sommer">Sommer</ion-select-option>
+        <ion-select-option value="Herbst">Herbst</ion-select-option>
+        <ion-select-option value="Winter">Winter</ion-select-option>
+    </ion-select>
+    </ion-item>
+
       <ion-item>
-        <ion-input label="Topf Volumen in Litern" type="number" [(ngModel)]="_topfVolumenEingabe" placeholder="Gib das Topfvolumen ein">
+        <ion-input label="Größe der Pflanze in cm" type="number" [(ngModel)]="_pflanzenGroesseInCmEingabe" placeholder="Gib die Größe der Pflanze ein">
         </ion-input>
       </ion-item>
 
@@ -33,23 +41,9 @@
       </ion-item>
 
       <ion-item>
-        <ion-range labelPlacement="start" label="temp" [ticks]="true" [snaps]="true" [min]="0" [max]="4" pin="true" [(ngModel)]="_temperaturEingabe" [pinFormatter]="pinFormatterTemp">
-            <ion-icon slot="start" name="thermometer"></ion-icon>
-            <ion-icon slot="end" name="thermometer-outline"></ion-icon>
-        </ion-range>
-      </ion-item>
-
-      <ion-item>
         <ion-range labelPlacement="start" label="boden" [ticks]="true" [snaps]="true" [min]="0" [max]="4" pin="true" [(ngModel)]="_bodenEingabe" [pinFormatter]="pinFormatterBoden">
             <ion-icon slot="start" name="leaf"></ion-icon>
             <ion-icon slot="end" name="leaf-outline"></ion-icon>
-        </ion-range>
-      </ion-item>
-
-      <ion-item>
-        <ion-range labelPlacement="start" label="klima" [ticks]="true" [snaps]="true" [min]="0" [max]="4" pin="true" [(ngModel)]="_klimaEingabe" [pinFormatter]="pinFormatterKlima">
-            <ion-icon slot="start" name="water"></ion-icon>
-            <ion-icon slot="end" name="sunny-outline"></ion-icon>
         </ion-range>
       </ion-item>
 
