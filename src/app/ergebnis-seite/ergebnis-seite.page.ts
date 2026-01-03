@@ -112,9 +112,9 @@ export class ErgebnisSeitePage implements OnInit {
     return this.nummerInsDeutscheFormat(ergebnisTempInMl);
   }
 
-  /** Formatiert eine Zahl auf zwei Nachkommastellen und im deutschen Format. */
+  /** Formatiert eine Zahl auf ganze Zahlen und im deutschen Format. */
   private nummerInsDeutscheFormat(zahl: number): string {
-    zahl = Math.round(zahl * 100) / 100;
+    zahl = Math.round(zahl);
     return zahl.toLocaleString('de-DE');
   }
 }
