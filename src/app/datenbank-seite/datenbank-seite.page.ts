@@ -17,6 +17,14 @@ export class DatenbankSeitePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.ladeEintraege();
+  }
+
+  ionViewWillEnter() {
+    this.ladeEintraege();
+  }
+
+  private ladeEintraege() {
     this.datenbankEintraege =
       this.speicherVerwaltungService.alleBerechnungenLaden();
   }
@@ -26,7 +34,7 @@ export class DatenbankSeitePage implements OnInit {
 
     const jaHandler = async () => {
       await this.speicherVerwaltungService.berechnungLöschen(eintrag);
-      this.ngOnInit();
+      this.ladeEintraege();
       this.toastService.zeigeToast(
         `Der Eintrag für die Pflanze "${eintrag.plantImageTypeText}" wurde gelöscht.`
       );

@@ -82,7 +82,7 @@ export class ErgebnisSeitePage implements OnInit {
     const eintrag = new DatenbankEintrag(
       Math.floor(Math.random() * 1000000),
       this.pflanzenartFormatiert!,
-      parseFloat((this.pflanzengroesseInInch! * this.INCH_TO_CM_KONST).toFixed(2)), //umrechnung in cm und auf zwei nachkommastellen runden
+      this.nummerInsDeutscheFormat(this.pflanzengroesseInInch! * this.INCH_TO_CM_KONST), //umrechnung in cm und auf zwei nachkommastellen runden
       this.jahreszeitFormatiert!,
       this.lichtFormatiert!,
       this.bodenFormatiert!,
@@ -95,6 +95,7 @@ export class ErgebnisSeitePage implements OnInit {
     );
 
     this.speicherVerwaltungService.berechnungHinzufügen(eintrag);
+    console.log("Ergebnis gespeichert:", eintrag);
   }
 
   private berechneWasserbedarf(): string{
@@ -102,11 +103,11 @@ export class ErgebnisSeitePage implements OnInit {
     let ergebnisTempInGalProMonat = (this.pflanzenartFaktor! * this.pflanzengroesseInInch!) + (this.pflanzenartFaktor! * this.lichtFaktor! * this.bodenFaktor! * this.jahreszeitFaktor!);
 
     let ergebnisTempInMl = ergebnisTempInGalProMonat *  this.GAL_TO_ML_KONST / (30/7); //umrechnung in ml pro Woche
+    return this.nummerInsDeutscheFormat(ergebnisTempInMl);
+  }
 
-    if(ergebnisTempInMl < 0.01){
-      return "< 0.01";
-    } else {
-      return ergebnisTempInMl.toFixed(2);
-    }
+  private nummerInsDeutscheFormat(zahl: number): string {
+    zahl = Math.round(zahl * 100) / 100;
+    return zahl.toLocaleString('de-DE');
   }
 }

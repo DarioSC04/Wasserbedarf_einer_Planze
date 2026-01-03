@@ -1,0 +1,41 @@
+
+
+.kartenLayout {
+	border-radius: 12px;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.ueberschrift {
+	font-weight: 600;
+	margin: 0 0 6px;
+}
+
+.listeAbstand {
+	padding-left: 18px;
+	margin: 6px 0 10px;
+	line-height: 1.45;
+}
+
+.unterUeberschrift {
+    font-size: large;
+}
+
+p {
+    font-size: large;
+}
+
+li {
+    font-size: large;
+}
+
+#formelText {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: normal;
+    text-align: center;
+}
+
+#formelHinweis {
+    font-size: normal;
+}

@@ -1,13 +1,69 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>InfoSeite</ion-title>
+    <ion-title>Info & Hilfe</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">InfoSeite</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [scrollEvents]="true" fullscreen="true">
+  <ion-card class="kartenLayout">
+    <ion-card-header>
+      <ion-card-title class="ueberschrift">Warum diese Berechnung?</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Die App orientiert sich an der Formel von calculatorpack.com/plant-water-calculator und soll dir helfen, deinen Pflanzen weder zu viel noch zu wenig Wasser zu geben. Die Formel vereint dabei Pflanzentyp, Größe und Umweltfaktoren.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="kartenLayout">
+    <ion-card-header>
+      <ion-card-title class="ueberschrift">Formel kurz erklärt</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p id="formelText">
+        Wasserbedarf* = (Pflanzenfaktor * Pflanzengröße) + (Pflanzenfaktor *
+        Sonnenfaktor * Bodenfaktor * Jahreszeitenfaktor)
+      </p>
+      <p id="formelHinweis">*in Gallonen pro Monat bei Pflanzengröße in Inch</p>
+      <br>
+
+      <h3 class="unterUeberschrift"><b>Erklärung der Faktoren:</b></h3>
+      <ul class="listeAbstand">
+        <li><b>Pflanzenfaktor:</b> z. B. 0,25 Kaktus, 0,5 Sukkulente, 0,75 Zimmerpflanze</li>
+        <li><b>Sonnenfaktor:</b> ca. 1,25 volle Sonne, 1,1 Halbschatten, 0,9 Schatten.</li>
+        <li><b>Bodenfaktor:</b> ca. 0,9 sandig, 1 lehmig, 1,1 tonig.</li>
+        <li><b>Jahreszeitenfaktor:</b> 1,25 Sommer/Herbst, sonst 1.</li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="kartenLayout">
+    <ion-card-header>
+      <ion-card-title class="ueberschrift">So bedienst du die App</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ul class="listeAbstand">
+        <li>Wähle den Pflanzentyp die aktuelle Jahreszeit aus.</li>
+        <li>Gib Lichtverhältnis und Bodentyp mithilfe der Slider an.</li>
+        <li>Trage die Größe deiner Pflanzen ein.</li>
+        <li>Wenn du willst kannst du zur Wiedererkennung einen Kommentar hinzufügen.</li>
+        <li>Tippe auf Berechnen, um den Wasserbedarf zu sehen.</li>
+        <li>Wenn du das Ergebnis dir nochmal anschauen willst, kannst du das auf der Datenbankseite tun. Dort kannst du dann auch die Berechnungen wieder löschen.</li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="kartenLayout">
+    <ion-card-header>
+      <ion-card-title class="ueberschrift">Hinweiße zur Formel</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Die Berechnung mithilfe der Formel liefert manchmal schlechte werte, so ist braucht z.B. ein 10cm großer Kaktus in voller bei voller Sonne und tonigem Boden 1,2 Liter Wasser in der Woche, was in der Praxis aber zu viel ist. Ich schätze, dass die Formel einen Fehler hat, aber es ist kein Problem mit der Implementierung.
+      </p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+

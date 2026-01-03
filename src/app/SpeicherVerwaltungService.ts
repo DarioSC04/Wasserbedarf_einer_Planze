@@ -49,7 +49,7 @@ export class DatenbankEintrag {
   constructor(
     public id: number,
     public pflanzenartFormatiert: string,
-    public pflanzengroesseInCm: number,
+    public pflanzengroesseInCm: string,
     public jahreszeitFormatiert: string,
     public lichtFormatiert: string,
     public bodenFormatiert: string,
