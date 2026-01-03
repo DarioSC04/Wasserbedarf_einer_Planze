@@ -8,6 +8,9 @@ export class SpeicherVerwaltungService {
   constructor(private storage: Storage) {
     this.storage.create();
   }
+  /** Fügt einen neuen Eintrag zur Datenbank hinzu.
+   * @param neuerEintrag Der hinzuzufügende als DatenbankEintrag Objekt.
+   */
 
   public async berechnungHinzufügen(
     neuerEintrag: DatenbankEintrag
@@ -21,9 +24,14 @@ export class SpeicherVerwaltungService {
     console.log('Berechnung hinzugefügt:', neuerEintrag);
   }
 
+  /** Lädt alle gespeicherten Berechnungen aus der Datenbank. */
   public async alleBerechnungenLaden(): Promise<DatenbankEintrag[]> {
     return (await this.storage.get('berechnungen')) || [];
   }
+
+  /** Löscht einen einzelnen Eintrag aus der Datenbank.
+   * @param eintrag Der zu löschende Eintrag als DatenbankEintrag Objekt.
+   */
 
   public async berechnungLöschen(eintrag: DatenbankEintrag): Promise<void> {
     let berechnungen = await this.alleBerechnungenLaden();
@@ -34,16 +42,33 @@ export class SpeicherVerwaltungService {
     console.log(`Berechnung ${eintrag} gelöscht.`);
   }
 
+  /** Löscht alle gespeicherten Berechnungen aus der Datenbank. */
   public async alleBerechnungenLöschen(): Promise<void> {
     await this.storage.remove('berechnungen');
     console.log('Alle Berechnungen gelöscht.');
   }
 
+  /** Gibt die Anzahl der gespeicherten Berechnungen zurück. */
   public async berechnungenAnzahl(): Promise<number> {
     let berechnungen = await this.alleBerechnungenLaden();
     return berechnungen.length;
   }
 }
+
+/** Repräsentiert einen Eintrag in der Datenbank.
+ * id: Eindeutige Identifikationsnummer des Eintrags.
+ * pflanzenartFormatiert: Pflanzenart in der Mehrzahl z.B. "Kakteen".
+ * pflanzengroesseInCm: Pflanzengröße in Zentimetern.
+ * jahreszeitFormatiert: Jahreszeit als String.
+ * lichtFormatiert: Formatierte Lichtverhältnisse von Vollsonne, Sonne, Halbschatten bis Schatten.
+ * bodenFormatiert: Formatierter Bodentyp von Sandig, Normal bis Lehmig.
+ * ergebnisInMl: Berechneter Wasserbedarf in Millilitern.
+ * datum: Datum der Berechnung.
+ * plantImagePath: Pfad zum Bild der Pflanze.
+ * plantImageAltText: Alternativtext für das Pflanzenbild.
+ * plantImageTypeText: Beschreibung der Pflanze in der Einahl, z.B. "Kaktus" statt wie in der auswahl "Kakteen", wichtig für die Anzeige in der Datenbankseite.
+ * kommentar: Optionaler Kommentar des Nutzers
+ */
 
 export class DatenbankEintrag {
   constructor(

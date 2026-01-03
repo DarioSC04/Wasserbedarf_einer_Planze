@@ -97,6 +97,7 @@ export class ErgebnisSeitePage implements OnInit {
     console.log('Ergebnis gespeichert:', eintrag);
   }
 
+  /** Berechnet den wöchentlichen Wasserbedarf in ml. */
   private berechneWasserbedarf(): string {
     //Formel von Webseite: Water Needs = (Plant Type Factor * Plant Size) + Plant Type Factor  * Sun Exposure Factor * Soil Type Factor * Season Factor
     let ergebnisTempInGalProMonat =
@@ -111,6 +112,7 @@ export class ErgebnisSeitePage implements OnInit {
     return this.nummerInsDeutscheFormat(ergebnisTempInMl);
   }
 
+  /** Formatiert eine Zahl auf zwei Nachkommastellen und im deutschen Format. */
   private nummerInsDeutscheFormat(zahl: number): string {
     zahl = Math.round(zahl * 100) / 100;
     return zahl.toLocaleString('de-DE');

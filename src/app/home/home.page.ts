@@ -91,6 +91,10 @@ export class HomePage {
     throw new Error('Ungültige Pflanzenart ausgewählt.');
   }
 
+
+  /** Überprüft die Benutzereingaben auf Gültigkeit.
+   * Wirft einen Fehler mit einer entsprechenden Fehlermeldung, wenn eine Eingabe ungültig ist.
+   */
   private eingabenUeberpruefen(): void {
     if (this._planzenartEingabe === '') {
       throw new Error('Bitte wählen Sie eine Pflanzenart aus.');

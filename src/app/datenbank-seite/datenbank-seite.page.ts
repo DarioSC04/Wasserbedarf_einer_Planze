@@ -19,6 +19,7 @@ export class DatenbankSeitePage {
     private toastService: ToastService
   ) {}
 
+  /** muss hier sein um die Einträge zu laden beim betreten der Seite */
   ionViewWillEnter() {
     this.ladeEintraege();
   }
@@ -28,6 +29,7 @@ export class DatenbankSeitePage {
       this.speicherVerwaltungService.alleBerechnungenLaden();
   }
 
+  /** Löscht einen einzelnen Eintrag nach Bestätigung durch den Nutzer. */
   public async eintragLoeschen(eintrag: DatenbankEintrag) {
     const sicherheitsfrage = `Möchten Sie den Eintrag für die Pflanze "${eintrag.plantImageTypeText}" wirklich löschen?`;
 
@@ -50,6 +52,7 @@ export class DatenbankSeitePage {
     );
   }
 
+  /** Löscht alle Einträge nach Bestätigung durch den Nutzer. */
   public async alleEintraegeLoeschen() {
     if ((await this.speicherVerwaltungService.berechnungenAnzahl()) === 0) {
       this.toastService.zeigeToast(
