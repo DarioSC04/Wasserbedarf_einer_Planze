@@ -11,13 +11,13 @@ import { AlertController, ToastController } from '@ionic/angular';
   providedIn: 'root',
 })
 export class ToastService {
-  
-
   /**
    * Konstruktor für *Dependency Injection*.
    */
-  constructor( private alertCtrl      : AlertController,
-               private toastController: ToastController ) {}
+  constructor(
+    private alertCtrl: AlertController,
+    private toastController: ToastController
+  ) {}
 
   /**
    * Alert/Dialog anzeigen.
@@ -31,17 +31,14 @@ export class ToastService {
    * @param nachricht  Eigentlich Nachricht des Dialogs.
    */
   async zeigeDialog(titel: string, nachricht: string) {
-
-    const meinAlert =
-          await this.alertCtrl.create({
-              header  : titel,
-              message : nachricht,
-              buttons : [ "Ok" ]
-          });
+    const meinAlert = await this.alertCtrl.create({
+      header: titel,
+      message: nachricht,
+      buttons: ['Ok'],
+    });
 
     await meinAlert.present();
   }
-
 
   /**
    * Toast anzeigen. Sollte nicht für die Anzeige von Fehlermeldungen verwendet werden.
@@ -49,12 +46,10 @@ export class ToastService {
    * @param nachricht  Anzuzeigender Text
    */
   async zeigeToast(nachricht: string) {
-
-    const toast =
-          await this.toastController.create({
-              message : nachricht,
-              duration: 2000
-          });
+    const toast = await this.toastController.create({
+      message: nachricht,
+      duration: 2000,
+    });
 
     await toast.present();
   }
@@ -67,31 +62,33 @@ export class ToastService {
    * @param abbrechenHandler Funktion, die ausgeführt wird, wenn der Benutzer auf "Abbrechen" klickt.
    */
 
-  async sicherheitsAbfrage(sicherheitsfrage: string, jaHandler: () => Promise<void>, abbrechenHandler: () => Promise<void>) : Promise<void> {
-            const jaButton = {
-        text: "Weiter",
-        handler: async () => {
-            await jaHandler();
-        }
+  async sicherheitsAbfrage(
+    sicherheitsfrage: string,
+    jaHandler: () => Promise<void>,
+    abbrechenHandler: () => Promise<void>
+  ): Promise<void> {
+    const jaButton = {
+      text: 'Weiter',
+      handler: async () => {
+        await jaHandler();
+      },
     };
 
     const abbrechenButton = {
-        text: "Abbrechen",
-        role: "Cancel",
-        handler: async () => {
-            await abbrechenHandler();
-        }
+      text: 'Abbrechen',
+      role: 'Cancel',
+      handler: async () => {
+        await abbrechenHandler();
+      },
     };
 
-    const meinAlert =
-          await this.alertCtrl.create({
-              header         : "Sicherheitsfrage",
-              message        : sicherheitsfrage,
-              backdropDismiss: false,
-              buttons        : [ jaButton, abbrechenButton ]
-          });
+    const meinAlert = await this.alertCtrl.create({
+      header: 'Sicherheitsfrage',
+      message: sicherheitsfrage,
+      backdropDismiss: false,
+      buttons: [jaButton, abbrechenButton],
+    });
 
     await meinAlert.present();
   }
-
 }

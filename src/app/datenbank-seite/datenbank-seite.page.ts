@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { DatenbankEintrag, SpeicherVerwaltungService } from '../SpeicherVerwaltungService';
+import { Component } from '@angular/core';
+import {
+  DatenbankEintrag,
+  SpeicherVerwaltungService,
+} from '../SpeicherVerwaltungService';
 import { ToastService } from '../Toast-service';
 
 @Component({
@@ -8,17 +11,13 @@ import { ToastService } from '../Toast-service';
   styleUrls: ['./datenbank-seite.page.scss'],
   standalone: false,
 })
-export class DatenbankSeitePage implements OnInit {
+export class DatenbankSeitePage {
   public datenbankEintraege: Promise<DatenbankEintrag[]> = Promise.resolve([]);
 
   constructor(
     private speicherVerwaltungService: SpeicherVerwaltungService,
     private toastService: ToastService
   ) {}
-
-  ngOnInit() {
-    this.ladeEintraege();
-  }
 
   ionViewWillEnter() {
     this.ladeEintraege();

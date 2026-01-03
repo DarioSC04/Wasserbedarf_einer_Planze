@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-info-seite',
@@ -6,11 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./info-seite.page.scss'],
   standalone: false,
 })
-export class InfoSeitePage implements OnInit {
+export class InfoSeitePage{
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

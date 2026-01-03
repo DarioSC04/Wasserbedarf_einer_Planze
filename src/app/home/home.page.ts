@@ -30,7 +30,8 @@ export class HomePage {
       //factoren umrechechnen
       let lichtFaktor: number = 0.9 + this._lichtEingabe * 0.0875; //liegt zwischen 0.9 und 1.25 und eingaben liegen zwischen 0 und 4
       let bodenFaktor: number = 0.9 + this._bodenEingabe * 0.05; //liegt zwischen 0.9 und 1.1 und eingaben liegen zwischen 0 und 4
-      let pflanzengroesseInInch: number = parseFloat(this._pflanzenGroesseInCmEingabe) * this.CM_TO_INCH_KONST;
+      let pflanzengroesseInInch: number =
+        parseFloat(this._pflanzenGroesseInCmEingabe) * this.CM_TO_INCH_KONST;
       let jahreszeitFaktor: number = this.jahreszeitFaktor();
       let pflanzenartFaktor: number = this.pflanzenartFaktor();
 
@@ -69,7 +70,9 @@ export class HomePage {
       case 'Winter':
         return 1.0;
     }
-    console.error('Ungültige Jahreszeit ausgewählt: ' + this._jahreszeitEingabe); //sollte eigentlich vorkommen
+    console.error(
+      'Ungültige Jahreszeit ausgewählt: ' + this._jahreszeitEingabe
+    ); //sollte eigentlich vorkommen
     throw new Error('Ungültige Jahreszeit ausgewählt.');
   }
 
@@ -82,7 +85,9 @@ export class HomePage {
       case 'normale Zimmerpflanzen':
         return 0.75;
     }
-    console.error('Ungültige Pflanzenart ausgewählt: ' + this._planzenartEingabe);  //sollte eigentlich vorkommen
+    console.error(
+      'Ungültige Pflanzenart ausgewählt: ' + this._planzenartEingabe
+    ); //sollte eigentlich vorkommen
     throw new Error('Ungültige Pflanzenart ausgewählt.');
   }
 
