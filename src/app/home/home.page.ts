@@ -106,6 +106,8 @@ export class HomePage {
 
     if (parseFloat(this._pflanzenGroesseInCmEingabe) <= 0) {
       throw new Error('Die Größe der Pflanze muss größer als 0 cm sein.');
+    } else if (parseFloat(this._pflanzenGroesseInCmEingabe) <= 0.001) {
+      throw new Error('Die Größe der Pflanze ist zu klein für eine Berechnung.');
     } else if (parseFloat(this._pflanzenGroesseInCmEingabe) > 500) {
       throw new Error('Die Berechnung ist nur für Zimmerpflanzen ausgelegt.');
     }

@@ -80,7 +80,7 @@ export class ErgebnisSeitePage implements OnInit {
       Math.floor(Math.random() * 1000000),
       this.pflanzenartFormatiert!,
       this.nummerInsDeutscheFormat(
-        this.pflanzengroesseInInch! * this.INCH_TO_CM_KONST
+        this.pflanzengroesseInInch! * this.INCH_TO_CM_KONST,2
       ), //umrechnung in cm und auf zwei nachkommastellen runden
       this.jahreszeitFormatiert!,
       this.lichtFormatiert!,
@@ -109,12 +109,12 @@ export class ErgebnisSeitePage implements OnInit {
 
     let ergebnisTempInMl =
       (ergebnisTempInGalProMonat * this.GAL_TO_ML_KONST) / (30 / 7); //umrechnung in ml pro Woche
-    return this.nummerInsDeutscheFormat(ergebnisTempInMl);
+    return this.nummerInsDeutscheFormat(ergebnisTempInMl,0);
   }
 
   /** Formatiert eine Zahl auf ganze Zahlen und im deutschen Format. */
-  private nummerInsDeutscheFormat(zahl: number): string {
-    zahl = Math.round(zahl);
+  private nummerInsDeutscheFormat(zahl: number, anzahlNachkommastellen: number): string {
+    zahl = Number(zahl.toFixed(anzahlNachkommastellen));
     return zahl.toLocaleString('de-DE');
   }
 }
