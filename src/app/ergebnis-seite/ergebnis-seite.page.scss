@@ -1,4 +1,4 @@
-.result-container {
+.ErgebnisContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,11 +7,11 @@
   padding: 0 60px;
 }
 
-.result-image {
+.pflanzenBild {
   max-width: 80%;
   height: auto;
 }
 
-.result-text {
+.ergebnisText {
   text-align: center;
 }

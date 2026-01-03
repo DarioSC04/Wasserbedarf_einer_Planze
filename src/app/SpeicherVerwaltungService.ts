@@ -5,33 +5,38 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root',
 })
 export class SpeicherVerwaltungService {
-
   constructor(private storage: Storage) {
-
     this.storage.create();
-
   }
 
-  public async berechnungHinzufügen(value: DatenbankEintrag): Promise<void> {
-
+  public async berechnungHinzufügen(
+    neuerEintrag: DatenbankEintrag
+  ): Promise<void> {
     let berechnungen = await this.alleBerechnungenLaden();
-    berechnungen.push(value);
-    berechnungen.sort((a, b) => new Date(b.datum).getTime() - new Date(a.datum).getTime());
+    berechnungen.push(neuerEintrag);
+    berechnungen.sort(
+      (a, b) => new Date(b.datum).getTime() - new Date(a.datum).getTime()
+    );
     await this.storage.set('berechnungen', berechnungen);
+    console.log('Berechnung hinzugefügt:', neuerEintrag);
   }
 
   public async alleBerechnungenLaden(): Promise<DatenbankEintrag[]> {
-    return await this.storage.get('berechnungen') || [];
+    return (await this.storage.get('berechnungen')) || [];
   }
 
-  public async berechnungLöschen(id: number): Promise<void> {
+  public async berechnungLöschen(eintrag: DatenbankEintrag): Promise<void> {
     let berechnungen = await this.alleBerechnungenLaden();
-    berechnungen = berechnungen.filter(berechnung => berechnung.id !== id);
+    berechnungen = berechnungen.filter(
+      (berechnung) => berechnung.id !== eintrag.id
+    );
     await this.storage.set('berechnungen', berechnungen);
+    console.log(`Berechnung ${eintrag} gelöscht.`);
   }
 
   public async alleBerechnungenLöschen(): Promise<void> {
     await this.storage.remove('berechnungen');
+    console.log('Alle Berechnungen gelöscht.');
   }
 
   public async berechnungenAnzahl(): Promise<number> {
@@ -53,6 +58,6 @@ export class DatenbankEintrag {
     public plantImagePath: string,
     public plantImageAltText: string,
     public plantImageTypeText: string,
-    public kommentar: string = ""
+    public kommentar: string = ''
   ) {}
 }

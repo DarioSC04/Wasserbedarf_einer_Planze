@@ -1,60 +1,102 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title> Home </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-    <ion-list>
-
-      <ion-item>
-      <ion-select label="Planzenart" placeholder="wähle die Planzenart aus" [(ngModel)]="_planzenartEingabe">
+  <ion-list>
+    <ion-item>
+      <ion-select
+        label="Planzenart"
+        placeholder="wähle die Planzenart aus"
+        [(ngModel)]="_planzenartEingabe"
+      >
         <ion-select-option value="Kakteen">Kakteen</ion-select-option>
         <ion-select-option value="Sukkulenten">Sukkulenten</ion-select-option>
-        <ion-select-option value="normale Zimmerpflanzen">normale Zimmerpflanzen</ion-select-option>
-        
-    </ion-select>
-      </ion-item>
+        <ion-select-option value="normale Zimmerpflanzen"
+          >normale Zimmerpflanzen</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
 
     <ion-item>
-      <ion-select label="Jahreszeit" placeholder="wähle die Jahreszeit aus" [(ngModel)]="_jahreszeitEingabe">
+      <ion-select
+        label="Jahreszeit"
+        placeholder="wähle die Jahreszeit aus"
+        [(ngModel)]="_jahreszeitEingabe"
+      >
         <ion-select-option value="Frühling">Frühling</ion-select-option>
         <ion-select-option value="Sommer">Sommer</ion-select-option>
         <ion-select-option value="Herbst">Herbst</ion-select-option>
         <ion-select-option value="Winter">Winter</ion-select-option>
-    </ion-select>
+      </ion-select>
     </ion-item>
 
-      <ion-item>
-        <ion-input label="Größe der Pflanze in cm" type="number" [(ngModel)]="_pflanzenGroesseInCmEingabe" placeholder="Gib die Größe der Pflanze ein">
-        </ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-input
+        label="Größe der Pflanze in cm"
+        type="number"
+        [(ngModel)]="_pflanzenGroesseInCmEingabe"
+      >
+      </ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-range labelPlacement="start" label="Licht" [ticks]="true" [snaps]="true" [min]="0" [max]="4" pin="true" [(ngModel)]="_lichtEingabe" [pinFormatter]="pinFormatterLicht">
-            <ion-icon slot="start" name="moon"></ion-icon>
-            <ion-icon slot="end" name="sunny"></ion-icon>
-        </ion-range>
-      </ion-item>
+    <ion-item>
+      <ion-range
+        class="range-label-fixed"
+        labelPlacement="start"
+        label="Licht"
+        [ticks]="true"
+        [snaps]="true"
+        [min]="0"
+        [max]="4"
+        pin="true"
+        [(ngModel)]="_lichtEingabe"
+        [pinFormatter]="pinFormatterLicht"
+      >
+        <ion-icon slot="start" name="moon-outline"></ion-icon>
+        <ion-icon slot="end" name="sunny-outline"></ion-icon>
+      </ion-range>
+    </ion-item>
 
-      <ion-item>
-        <ion-range labelPlacement="start" label="boden" [ticks]="true" [snaps]="true" [min]="0" [max]="4" pin="true" [(ngModel)]="_bodenEingabe" [pinFormatter]="pinFormatterBoden">
-            <ion-icon slot="start" name="leaf"></ion-icon>
-            <ion-icon slot="end" name="leaf-outline"></ion-icon>
-        </ion-range>
-      </ion-item>
+    <ion-item>
+      <ion-range
+        class="range-label-fixed"
+        labelPlacement="start"
+        label="Boden"
+        [ticks]="true"
+        [snaps]="true"
+        [min]="0"
+        [max]="4"
+        pin="true"
+        [(ngModel)]="_bodenEingabe"
+        [pinFormatter]="pinFormatterBoden"
+      >
+        <ion-icon
+          slot="start"
+          src="../assets/icon/sand-outline.svg"
+          size="large"
+        ></ion-icon>
+        <ion-icon
+          slot="end"
+          src="../assets/icon/clay-outline.svg"
+          size="large"
+        ></ion-icon>
+      </ion-range>
+    </ion-item>
 
-      <ion-item>
-        <ion-input label="Kommentar" type="text" [(ngModel)]="_kommentarEingabe" placeholder="Gib einen Kommentar ein"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-input
+        label="Kommentar"
+        type="text"
+        [(ngModel)]="_kommentarEingabe"
+        placeholder="Gib einen Kommentar ein"
+      ></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-button (click)="onBerechnungButton()">Berechnen</ion-button>
-      </ion-item>
-
+    <ion-item>
+      <ion-button (click)="onBerechnungButton()">Berechnen</ion-button>
+    </ion-item>
   </ion-list>
-
 </ion-content>

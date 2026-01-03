@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SpeicherVerwaltungService, DatenbankEintrag } from '../SpeicherVerwaltungService';
 
@@ -8,50 +8,51 @@ import { SpeicherVerwaltungService, DatenbankEintrag } from '../SpeicherVerwaltu
   styleUrls: ['./ergebnis-seite.page.scss'],
   standalone: false,
 })
-export class ErgebnisSeitePage {
+export class ErgebnisSeitePage implements OnInit {
 
   public readonly GAL_TO_ML_KONST: number = 3785.41;
   public readonly INCH_TO_CM_KONST: number = 2.54;
 
-  public pflanzenartFormatiert: string | null;
-  public pflanzenartFaktor: number | 1;
-  public pflanzengroesseInInch: number | 0;
-  public lichtFormatiert: string | null;
-  public lichtFaktor: number | 1;
-  public bodenFormatiert: string | null;
-  public bodenFaktor: number | 1;
-  public jahreszeitFormatiert: string | null;
-  public jahreszeitFaktor: number | 1;
-  public kommentar: string | null;
-
-  public ergebnisInMl: string | null;
+  public pflanzenartFormatiert: string | undefined;
+  public pflanzenartFaktor: number | undefined;
+  public pflanzengroesseInInch: number | undefined;
+  public lichtFormatiert: string | undefined;
+  public lichtFaktor: number | undefined;
+  public bodenFormatiert: string | undefined;
+  public bodenFaktor: number | undefined;
+  public jahreszeitFormatiert: string | undefined;
+  public jahreszeitFaktor: number | undefined;
+  public kommentar: string | undefined;
+  public ergebnisInMl: string | undefined;
 
   public _pflanzenBildPfad: string = "";
   public _pflanzenBildAltText: string = "";
   public _pflanzenBildTypText: string = "";
 
-  constructor(private route: ActivatedRoute, private speicherVerwaltungService: SpeicherVerwaltungService) { 
+  constructor(private route: ActivatedRoute, private speicherVerwaltungService: SpeicherVerwaltungService) { }
 
-    this.pflanzenartFormatiert = this.route.snapshot.queryParamMap.get('pflanzenart');
-    this.pflanzenartFaktor = Number(this.route.snapshot.queryParamMap.get('pflanzenartFaktor'));
-    this.pflanzengroesseInInch = Number(this.route.snapshot.queryParamMap.get('pflanzengroesseInInch'));
-    this.lichtFormatiert = this.route.snapshot.queryParamMap.get('lichtFormatiert');
-    this.lichtFaktor = Number(this.route.snapshot.queryParamMap.get('lichtFaktor'));
-    this.bodenFormatiert = this.route.snapshot.queryParamMap.get('bodenFormatiert');
-    this.bodenFaktor = Number(this.route.snapshot.queryParamMap.get('bodenFaktor'));
-    this.jahreszeitFormatiert = this.route.snapshot.queryParamMap.get('jahreszeit');
-    this.jahreszeitFaktor = Number(this.route.snapshot.queryParamMap.get('jahreszeitFaktor'));
-    this.kommentar = this.route.snapshot.queryParamMap.get('kommentar');
-    this.ergebnisInMl = this.berechneWasserbedarf();
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.pflanzenartFormatiert = params['pflanzenart'] || "";
+      this.pflanzenartFaktor = Number(params['pflanzenartFaktor']);
+      this.pflanzengroesseInInch = Number(params['pflanzengroesseInInch']);
+      this.lichtFormatiert = params['lichtFormatiert'] || "";
+      this.lichtFaktor = Number(params['lichtFaktor']);
+      this.bodenFormatiert = params['bodenFormatiert'] || "";
+      this.bodenFaktor = Number(params['bodenFaktor']);
+      this.jahreszeitFormatiert = params['jahreszeitFormatiert'] || "";
+      this.jahreszeitFaktor = Number(params['jahreszeitFaktor']);
+      this.kommentar = params['kommentar'] || "";
 
-    this.pflanzenBildFestlegen();
-    
-    this.ergebnisSpeichern();
+      this.ergebnisInMl = this.berechneWasserbedarf();
+      this.pflanzenBildFestlegen();
+      this.ergebnisSpeichern();
+    });
   }
 
   private pflanzenBildFestlegen() {
-        if(this.pflanzenartFormatiert === "Sukkulenten"){
-
+    if(this.pflanzenartFormatiert === "Sukkulenten"){
+      
       this._pflanzenBildAltText = "Bild einer Sukkulente";
       this._pflanzenBildPfad = "assets/images/sukkulente.png";
       this._pflanzenBildTypText = "Sukkulente";
@@ -78,7 +79,7 @@ export class ErgebnisSeitePage {
 
   private ergebnisSpeichern() {
 
-    this.speicherVerwaltungService.berechnungHinzufügen(new DatenbankEintrag(
+    const eintrag = new DatenbankEintrag(
       Math.floor(Math.random() * 1000000),
       this.pflanzenartFormatiert!,
       parseFloat((this.pflanzengroesseInInch! * this.INCH_TO_CM_KONST).toFixed(2)), //umrechnung in cm und auf zwei nachkommastellen runden
@@ -91,15 +92,16 @@ export class ErgebnisSeitePage {
       this._pflanzenBildAltText,
       this._pflanzenBildTypText,
       this.kommentar!
-    ));
+    );
 
+    this.speicherVerwaltungService.berechnungHinzufügen(eintrag);
   }
 
   private berechneWasserbedarf(): string{
     //Formel von Webseite: Water Needs = (Plant Type Factor * Plant Size) + Plant Type Factor  * Sun Exposure Factor * Soil Type Factor * Season Factor
-    let ergebnisTempInGalProMonat = this.pflanzenartFaktor! * this.pflanzengroesseInInch! + this.pflanzenartFaktor! * this.lichtFaktor! * this.bodenFaktor! * 1.0;
+    let ergebnisTempInGalProMonat = (this.pflanzenartFaktor! * this.pflanzengroesseInInch!) + (this.pflanzenartFaktor! * this.lichtFaktor! * this.bodenFaktor! * this.jahreszeitFaktor!);
 
-    let ergebnisTempInMl = ergebnisTempInGalProMonat *  this.GAL_TO_ML_KONST / 30; //umrechnung in ml pro tag
+    let ergebnisTempInMl = ergebnisTempInGalProMonat *  this.GAL_TO_ML_KONST / (30/7); //umrechnung in ml pro Woche
 
     if(ergebnisTempInMl < 0.01){
       return "< 0.01";

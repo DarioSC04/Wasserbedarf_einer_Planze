@@ -1,26 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>ergebnisSeite</ion-title>
+    <ion-title>Ergebnis Seite</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">ErgebnisSeite</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div class="result-container">
+<ion-content>
+  <div class="ErgebnisContainer">
     <ion-img
       src="{{_pflanzenBildPfad}}"
       alt="{{_pflanzenBildAltText}}"
-      class="result-image"
+      class="pflanzenBild"
     ></ion-img>
-    
-    <div class="result-text">
-      <h2>Dein {{_pflanzenBildTypText}} braucht {{ergebnisInMl}} Milliliter Wasser in der Woche</h2>
+
+    <div class="ergebnisText">
+      <h2>
+        Dein {{_pflanzenBildTypText}} braucht {{ergebnisInMl}} Milliliter Wasser
+        in der Woche
+      </h2>
     </div>
   </div>
-
 </ion-content>
