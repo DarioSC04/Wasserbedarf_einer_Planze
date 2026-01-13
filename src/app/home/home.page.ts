@@ -72,7 +72,7 @@ export class HomePage {
     }
     console.error(
       'Ungültige Jahreszeit ausgewählt: ' + this._jahreszeitEingabe
-    ); //sollte eigentlich vorkommen
+    ); //sollte eigentlich nie vorkommen
     throw new Error('Ungültige Jahreszeit ausgewählt.');
   }
 
@@ -87,7 +87,7 @@ export class HomePage {
     }
     console.error(
       'Ungültige Pflanzenart ausgewählt: ' + this._planzenartEingabe
-    ); //sollte eigentlich vorkommen
+    ); //sollte eigentlich nie vorkommen
     throw new Error('Ungültige Pflanzenart ausgewählt.');
   }
 
