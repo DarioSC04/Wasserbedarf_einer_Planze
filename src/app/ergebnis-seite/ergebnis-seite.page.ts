@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { ToastService } from '../Toast-service';
 import {
   SpeicherVerwaltungService,
   DatenbankEintrag,
@@ -33,7 +35,9 @@ export class ErgebnisSeitePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private speicherVerwaltungService: SpeicherVerwaltungService
+    private speicherVerwaltungService: SpeicherVerwaltungService,
+    private navController: NavController,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -51,7 +55,6 @@ export class ErgebnisSeitePage implements OnInit {
 
       this.ergebnisInMl = this.berechneWasserbedarf();
       this.pflanzenBildFestlegen();
-      this.ergebnisSpeichern();
     });
   }
 
@@ -75,7 +78,7 @@ export class ErgebnisSeitePage implements OnInit {
     }
   }
 
-  private ergebnisSpeichern() {
+  public onSpeichernButtonKlick() {
     const eintrag = new DatenbankEintrag(
       Math.floor(Math.random() * 1000000),
       this.pflanzenartFormatiert!,
@@ -95,6 +98,9 @@ export class ErgebnisSeitePage implements OnInit {
 
     this.speicherVerwaltungService.berechnungHinzufügen(eintrag);
     console.log('Ergebnis gespeichert:', eintrag);
+
+    this.toastService.zeigeToast('Ergebnis wurde gespeichert.');
+    this.navController.navigateForward('/home');
   }
 
   /** Berechnet den wöchentlichen Wasserbedarf in ml. */

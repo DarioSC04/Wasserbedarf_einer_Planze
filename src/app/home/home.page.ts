@@ -139,11 +139,11 @@ export class HomePage {
       case 0:
         return 'Sandig';
       case 1:
-        return 'Sandig';
+        return 'eher Sandig';
       case 2:
         return 'Normal';
       case 3:
-        return 'Tonig';
+        return 'eher Tonig';
       case 4:
         return 'Tonig';
       default:
