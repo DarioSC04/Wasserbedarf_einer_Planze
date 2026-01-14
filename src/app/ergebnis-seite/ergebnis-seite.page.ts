@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { ToastService } from '../Toast-service';
+import { ToastService } from '../toast-service';
 import {
   SpeicherVerwaltungService,
   DatenbankEintrag,
-} from '../SpeicherVerwaltungService';
+} from '../speicher-verwaltung-service';
 
 @Component({
   selector: 'app-ergebnis-seite',

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import {
   DatenbankEintrag,
   SpeicherVerwaltungService,
-} from '../SpeicherVerwaltungService';
-import { ToastService } from '../Toast-service';
+} from '../speicher-verwaltung-service';
+import { ToastService } from '../toast-service';
 
 @Component({
   selector: 'app-datenbank-seite',

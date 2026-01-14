@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { ToastService } from '../Toast-service';
+import { ToastService } from '../toast-service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,7 @@ import { ToastService } from '../Toast-service';
 export class HomePage {
   public readonly CM_TO_INCH_KONST: number = 0.393701;
 
-  public _planzenartEingabe: string = '';
+  public _pflanzenartEingabe: string = '';
   public _pflanzenGroesseInCmEingabe: string = '';
   public _lichtEingabe: number = 2;
   public _bodenEingabe: number = 2;
@@ -39,7 +39,7 @@ export class HomePage {
       let bodenFormatiert = this.pinFormatterBoden(this._bodenEingabe);
 
       let weiterleitungsURl = `/ergebnis-seite`;
-      weiterleitungsURl += `?pflanzenart=${this._planzenartEingabe}`;
+      weiterleitungsURl += `?pflanzenart=${this._pflanzenartEingabe}`;
       weiterleitungsURl += `&jahreszeitFormatiert=${this._jahreszeitEingabe}`;
       weiterleitungsURl += `&lichtFormatiert=${lichtFormatiert}`;
       weiterleitungsURl += `&bodenFormatiert=${bodenFormatiert}`;
@@ -77,7 +77,7 @@ export class HomePage {
   }
 
   private pflanzenartFaktor(): number {
-    switch (this._planzenartEingabe) {
+    switch (this._pflanzenartEingabe) {
       case 'Kakteen':
         return 0.25;
       case 'Sukkulenten':
@@ -86,7 +86,7 @@ export class HomePage {
         return 0.75;
     }
     console.error(
-      'Ungültige Pflanzenart ausgewählt: ' + this._planzenartEingabe
+      'Ungültige Pflanzenart ausgewählt: ' + this._pflanzenartEingabe
     ); //sollte eigentlich nie vorkommen
     throw new Error('Ungültige Pflanzenart ausgewählt.');
   }
@@ -96,7 +96,7 @@ export class HomePage {
    * Wirft einen Fehler mit einer entsprechenden Fehlermeldung, wenn eine Eingabe ungültig ist.
    */
   private eingabenUeberpruefen(): void {
-    if (this._planzenartEingabe === '') {
+    if (this._pflanzenartEingabe === '') {
       throw new Error('Bitte wählen Sie eine Pflanzenart aus.');
     }
 
@@ -152,7 +152,7 @@ export class HomePage {
   }
 
   reset(): void {
-    this._planzenartEingabe = '';
+    this._pflanzenartEingabe = '';
     this._pflanzenGroesseInCmEingabe = '';
     this._lichtEingabe = 2;
     this._bodenEingabe = 2;

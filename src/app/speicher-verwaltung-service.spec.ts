@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SpeicherVerwaltungService } from './SpeicherVerwaltungService';
+import { SpeicherVerwaltungService } from './speicher-verwaltung-service';
 
 describe('SpeicherVerwaltungService', () => {
   let service: SpeicherVerwaltungService;
