@@ -13,6 +13,7 @@ import { ToastService } from '../toast-service';
 })
 export class DatenbankSeitePage {
   public datenbankEintraege: Promise<DatenbankEintrag[]> = Promise.resolve([]);
+  public keineEintraegeVorhanden: Promise<boolean> = Promise.resolve(false);
 
   constructor(
     private speicherVerwaltungService: SpeicherVerwaltungService,
@@ -27,6 +28,7 @@ export class DatenbankSeitePage {
   private ladeEintraege() {
     this.datenbankEintraege =
       this.speicherVerwaltungService.alleBerechnungenLaden();
+      this.keineEintraegeVorhanden = this.datenbankEintraege.then(eintraege => eintraege.length === 0); 
   }
 
   /** Löscht einen einzelnen Eintrag nach Bestätigung durch den Nutzer. */

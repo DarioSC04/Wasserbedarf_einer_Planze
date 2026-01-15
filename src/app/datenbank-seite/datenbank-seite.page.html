@@ -20,8 +20,8 @@
         </div>
         <ion-card-header>
           <ion-card-title
-            >{{eintrag.plantImageTypeText}} braucht {{eintrag.ergebnisInMl}}
-            ML/Woche</ion-card-title
+            >{{eintrag.plantImageTypeText}} braucht {{eintrag.ergebnisString}}
+            </ion-card-title
           >
         </ion-card-header>
         <ion-card-content>
@@ -39,4 +39,7 @@
       </ion-card>
     </ion-item>
   </ion-list>
+  <div *ngIf="keineEintraegeVorhanden | async" class="keinEintragContainer">
+    <p class="keinEintragText">es sind noch keine Einträge vorhanden.</p>
+  </div>
 </ion-content>

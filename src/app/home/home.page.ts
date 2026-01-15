@@ -107,9 +107,9 @@ export class HomePage {
     if (parseFloat(this._pflanzenGroesseInCmEingabe) <= 0) {
       throw new Error('Die Größe der Pflanze muss größer als 0 cm sein.');
     } else if (parseFloat(this._pflanzenGroesseInCmEingabe) <= 0.001) {
-      throw new Error('Die Größe der Pflanze ist zu klein für eine Berechnung.');
+      throw new Error(`Die Größe der Pflanze ist zu klein für eine Berechnung mit ${this._pflanzenGroesseInCmEingabe} cm.`);
     } else if (parseFloat(this._pflanzenGroesseInCmEingabe) > 500) {
-      throw new Error('Die Berechnung ist nur für Zimmerpflanzen ausgelegt.');
+      throw new Error(`Die Formel ist nur für Pflanzen bis 500 cm ausgelegt. Ihre Eingabe: ${this._pflanzenGroesseInCmEingabe} cm.`);
     }
 
     if (this._kommentarEingabe.length > 200) {

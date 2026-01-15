@@ -27,7 +27,8 @@ export class ErgebnisSeitePage implements OnInit {
   public jahreszeitFormatiert: string | undefined;
   public jahreszeitFaktor: number | undefined;
   public kommentar: string | undefined;
-  public ergebnisInMl: string | undefined;
+  public ergebnisInMl: number | undefined;
+  public ergebnisString: string | undefined;
 
   public _pflanzenBildPfad: string = '';
   public _pflanzenBildAltText: string = '';
@@ -54,6 +55,13 @@ export class ErgebnisSeitePage implements OnInit {
       this.kommentar = params['kommentar'] || '';
 
       this.ergebnisInMl = this.berechneWasserbedarf();
+
+      if (this.ergebnisInMl < 1000 ) {
+      this.ergebnisString = this.nummerInsDeutscheFormat(this.ergebnisInMl, -1) + ' ml pro Woche';
+      }else{
+      const ergebnisInL = (Number(this.ergebnisInMl) / 1000);
+      this.ergebnisString = this.nummerInsDeutscheFormat(ergebnisInL, 2) + ' l pro Woche';
+      }
       this.pflanzenBildFestlegen();
     });
   }
@@ -89,6 +97,7 @@ export class ErgebnisSeitePage implements OnInit {
       this.lichtFormatiert!,
       this.bodenFormatiert!,
       this.ergebnisInMl!,
+      this.ergebnisString!,
       new Date().toISOString(),
       this._pflanzenBildPfad,
       this._pflanzenBildAltText,
@@ -104,7 +113,7 @@ export class ErgebnisSeitePage implements OnInit {
   }
 
   /** Berechnet den wöchentlichen Wasserbedarf in ml. */
-  private berechneWasserbedarf(): string {
+  private berechneWasserbedarf(): number {
     //Formel von Webseite: Water Needs = (Plant Type Factor * Plant Size) + Plant Type Factor  * Sun Exposure Factor * Soil Type Factor * Season Factor
     let ergebnisTempInGalProMonat =
       this.pflanzenartFaktor! * this.pflanzengroesseInInch! +
@@ -115,12 +124,15 @@ export class ErgebnisSeitePage implements OnInit {
 
     let ergebnisTempInMl =
       (ergebnisTempInGalProMonat * this.GAL_TO_ML_KONST) / (30 / 7); //umrechnung in ml pro Woche
-    return this.nummerInsDeutscheFormat(ergebnisTempInMl,0);
+    return ergebnisTempInMl;
   }
-
   /** Formatiert eine Zahl auf ganze Zahlen und im deutschen Format. */
   private nummerInsDeutscheFormat(zahl: number, anzahlNachkommastellen: number): string {
+    if (anzahlNachkommastellen < 0) {
+      zahl = Math.round(zahl / Math.pow(10, -anzahlNachkommastellen)) * Math.pow(10, -anzahlNachkommastellen);
+    }else{
     zahl = Number(zahl.toFixed(anzahlNachkommastellen));
+    }
     return zahl.toLocaleString('de-DE');
   }
 }
