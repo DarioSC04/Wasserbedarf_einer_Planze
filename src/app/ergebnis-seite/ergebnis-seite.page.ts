@@ -87,6 +87,21 @@ export class ErgebnisSeitePage implements OnInit {
   }
 
   public onSpeichernButtonKlick() {
+    const sicherheitsAbfrage = `Möchten Sie das Ergebnis für die Pflanze "${this._pflanzenBildTypText}" wirklich speichern?`;
+    const jaHandler = async () => {
+      this.speichernDurchfuehren();
+    };
+    const abbrechenHandler = async () => {
+      this.toastService.zeigeToast('Speichervorgang abgebrochen.');
+    };
+    this.toastService.sicherheitsAbfrage(
+      sicherheitsAbfrage,
+      jaHandler,
+      abbrechenHandler
+    );
+  }
+
+  private speichernDurchfuehren() {
     const eintrag = new DatenbankEintrag(
       Math.floor(Math.random() * 1000000),
       this.pflanzenartFormatiert!,
@@ -126,12 +141,12 @@ export class ErgebnisSeitePage implements OnInit {
       (ergebnisTempInGalProMonat * this.GAL_TO_ML_KONST) / (30 / 7); //umrechnung in ml pro Woche
     return ergebnisTempInMl;
   }
-  /** Formatiert eine Zahl auf ganze Zahlen und im deutschen Format. */
+  /** Formatiert eine Zahl auf ganze Zahlen und im deutschen Format. gerundet (bei negativen Nachkommastellen wird auf 10 hoch n gerundet) */
   private nummerInsDeutscheFormat(zahl: number, anzahlNachkommastellen: number): string {
     if (anzahlNachkommastellen < 0) {
       zahl = Math.round(zahl / Math.pow(10, -anzahlNachkommastellen)) * Math.pow(10, -anzahlNachkommastellen);
     }else{
-    zahl = Number(zahl.toFixed(anzahlNachkommastellen));
+      zahl = Number(zahl.toFixed(anzahlNachkommastellen));
     }
     return zahl.toLocaleString('de-DE');
   }

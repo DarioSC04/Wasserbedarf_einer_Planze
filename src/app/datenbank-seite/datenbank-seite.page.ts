@@ -33,7 +33,7 @@ export class DatenbankSeitePage {
 
   /** Löscht einen einzelnen Eintrag nach Bestätigung durch den Nutzer. */
   public async eintragLoeschen(eintrag: DatenbankEintrag) {
-    const sicherheitsfrage = `Möchten Sie den Eintrag für die Pflanze "${eintrag.plantImageTypeText}" wirklich löschen?`;
+    const sicherheitsFrage = `Möchten Sie den Eintrag für die Pflanze "${eintrag.plantImageTypeText}" wirklich löschen?`;
 
     const jaHandler = async () => {
       await this.speicherVerwaltungService.berechnungLöschen(eintrag);
@@ -48,7 +48,7 @@ export class DatenbankSeitePage {
     };
 
     this.toastService.sicherheitsAbfrage(
-      sicherheitsfrage,
+      sicherheitsFrage,
       jaHandler,
       abbrechenHandler
     );
@@ -63,7 +63,7 @@ export class DatenbankSeitePage {
       return;
     }
 
-    const sicherheitsfrage = `Möchten Sie wirklich alle Einträge in der Datenbank löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.`;
+    const sicherheitsFrage = `Möchten Sie wirklich alle Einträge in der Datenbank löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.`;
     const jaHandler = async () => {
       await this.speicherVerwaltungService.alleBerechnungenLöschen();
       this.datenbankEintraege =
@@ -76,7 +76,7 @@ export class DatenbankSeitePage {
     };
 
     this.toastService.sicherheitsAbfrage(
-      sicherheitsfrage,
+      sicherheitsFrage,
       jaHandler,
       abbrechenHandler
     );

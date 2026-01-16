@@ -86,7 +86,7 @@ export class ToastService {
       header: 'Sicherheitsfrage',
       message: sicherheitsfrage,
       backdropDismiss: false,
-      buttons: [jaButton, abbrechenButton],
+      buttons: [abbrechenButton, jaButton],
     });
 
     await meinAlert.present();
