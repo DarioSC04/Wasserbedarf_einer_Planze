@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Datenbank</ion-title>
+    <ion-title>Datenbank - Einträge: {{ anzahlEintraege | async }}</ion-title>
     <ion-button (click)="alleEintraegeLoeschen()" color="danger" slot="end"
       >Alle löschen</ion-button
     >

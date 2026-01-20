@@ -14,6 +14,7 @@ import { ToastService } from '../toast-service';
 export class DatenbankSeitePage {
   public datenbankEintraege: Promise<DatenbankEintrag[]> = Promise.resolve([]);
   public keineEintraegeVorhanden: Promise<boolean> = Promise.resolve(false);
+  public anzahlEintraege: Promise<number> = Promise.resolve(0);
 
   constructor(
     private speicherVerwaltungService: SpeicherVerwaltungService,
@@ -29,6 +30,7 @@ export class DatenbankSeitePage {
     this.datenbankEintraege =
       this.speicherVerwaltungService.alleBerechnungenLaden();
       this.keineEintraegeVorhanden = this.datenbankEintraege.then(eintraege => eintraege.length === 0); 
+      this.anzahlEintraege = this.speicherVerwaltungService.berechnungenAnzahl();
   }
 
   /** Löscht einen einzelnen Eintrag nach Bestätigung durch den Nutzer. */
@@ -66,8 +68,7 @@ export class DatenbankSeitePage {
     const sicherheitsFrage = `Möchten Sie wirklich alle Einträge in der Datenbank löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.`;
     const jaHandler = async () => {
       await this.speicherVerwaltungService.alleBerechnungenLöschen();
-      this.datenbankEintraege =
-        this.speicherVerwaltungService.alleBerechnungenLaden();
+      this.ladeEintraege();
       this.toastService.zeigeToast('Alle Einträge wurden gelöscht.');
     };
 
